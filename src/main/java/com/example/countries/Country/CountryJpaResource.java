@@ -28,10 +28,53 @@ public class CountryJpaResource {
 
     }
 
-    @GetMapping("/jpa/users/todoss")
-    public String getAllTodosf(){
 
-        return "Hello world!";
+    @GetMapping("/jpa/users/{username}/todos/{id}")
+    public Country getTodo(@PathVariable String username,
+                        @PathVariable Long id){
+        //return todoService.findById(id);
+        return countryJpaRepo.findById(id).get();
+
+    }
+
+    @DeleteMapping("/jpa/users/{username}/todos/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable String username,
+                                           @PathVariable Long id){
+
+        //Todo todo = todoService.deleteById(id);
+        countryJpaRepo.deleteById(id);
+
+
+        return ResponseEntity.noContent().build();
+
+
+        //return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/jpa/users/{username}/todos/{id}")
+    public ResponseEntity<Country> updateTodo(@PathVariable String username,
+                                           @PathVariable Long id,
+                                           @RequestBody Country country){
+
+        //Todo todoUpdated = todoService.save(todo);
+        Country todoUpdated = countryJpaRepo.save(country);
+
+        return new ResponseEntity<Country>(country, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/jpa/users/{username}/todos")
+    public ResponseEntity<Void> createTodo(@PathVariable String username,
+                                           @RequestBody Country country){
+        //Todo createdTodo = todoService.saveii(todo);
+        country.setUsername(username);
+        Country createdTodo = countryJpaRepo.save(country);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(createdTodo.getId()).toUri();
+
+
+        return ResponseEntity.created(uri).build();
 
     }
 

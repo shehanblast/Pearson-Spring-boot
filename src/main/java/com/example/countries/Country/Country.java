@@ -23,7 +23,8 @@ public class Country {
 
     }
 
-    public Country(String username, String name, String capital, String language, String currency, int population, String president) {
+    public Country(long id,String username, String name, String capital, String language, String currency, int population, String president) {
+        this.id = id;
         this.username = username;
         this.name = name;
         this.capital = capital;
