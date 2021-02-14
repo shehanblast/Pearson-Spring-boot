@@ -21,7 +21,7 @@ public class CountryJpaResource {
     @Autowired
     private CountryJpaRepo countryJpaRepo;
 
-    @GetMapping("/jpa/users/todos")
+    @GetMapping("/rest/v2/jpa/countries")
     public List<Country> getAllTodos(){
 
         return countryJpaRepo.findAll();
@@ -29,7 +29,7 @@ public class CountryJpaResource {
     }
 
 
-    @GetMapping("/jpa/users/{username}/todos/{id}")
+    @GetMapping("/rest/v2/jpa/{username}/countries/{id}")
     public Country getTodo(@PathVariable String username,
                         @PathVariable Long id){
         //return todoService.findById(id);
@@ -37,7 +37,7 @@ public class CountryJpaResource {
 
     }
 
-    @DeleteMapping("/jpa/users/{username}/todos/{id}")
+    @DeleteMapping("/rest/v2/jpa/{username}/countries/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username,
                                            @PathVariable Long id){
 
@@ -51,7 +51,7 @@ public class CountryJpaResource {
         //return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/jpa/users/{username}/todos/{id}")
+    @PutMapping("/rest/v2/jpa/{username}/countries/{id}")
     public ResponseEntity<Country> updateTodo(@PathVariable String username,
                                            @PathVariable Long id,
                                            @RequestBody Country country){
@@ -63,7 +63,7 @@ public class CountryJpaResource {
 
     }
 
-    @PostMapping("/jpa/users/{username}/todos")
+    @PostMapping("/rest/v2/jpa/{username}/countries")
     public ResponseEntity<Void> createTodo(@PathVariable String username,
                                            @RequestBody Country country){
         //Todo createdTodo = todoService.saveii(todo);
